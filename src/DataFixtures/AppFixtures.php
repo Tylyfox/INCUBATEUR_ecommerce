@@ -21,7 +21,7 @@ class AppFixtures extends Fixture
         $this->encoder = $encoder;
     }
 
-    public function load(ObjectManager $manager,): void
+    public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
         $faker->addProvider(new Prices($faker));
@@ -47,11 +47,10 @@ class AppFixtures extends Fixture
         
         }
         
-        
-        
         $admin = new User();
         
         $hash = $this->encoder->hashPassword($admin,"admin");
+        
         $admin->setFirstName("admin")
         ->setLastName("admin")
         ->setEmail("admin@gmail.com")
