@@ -13,15 +13,27 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
  * @ApiResource(
- * attributes={
- * "pagination_enabled"=true,
- *  "pagination_items_per_page"=20,
- *  "order": {"name":"asc"}
- * },subresourceOperations={
- *      "products_get_subresource"={"path"="/categories/{id}/produits"}
- * },
- * normalizationContext={
- *  "groups"= {"categories_read"}},
+ *      attributes={
+ *          "pagination_enabled"=true,
+ *          "pagination_items_per_page"=20,
+ *          "order": {"name":"asc"}
+ *      },
+ *      subresourceOperations={
+ *          "products_get_subresource"={"path"="/categories/{id}/produits"}
+ *      },
+ *      normalizationContext={
+ *          "groups"= {"categories_read"}
+ *      },
+ *      collectionOperations={
+ *          "GET"={"path"="/categories"},
+ *          "POST"= {"path"="/categories"}
+ *      },
+ *      itemOperations={
+ *          "GET"={"path"="/categories/{id}"},
+ *          "DELETE"={"path"="/categories/{id}"},
+ *          "PUT"={"path"="/categories/{id}"},
+ *          "PATCH"={"path"="/categories/{id}"}
+ *      }
  * )
  */
 class Category
@@ -51,6 +63,7 @@ class Category
     {
         $this->products = new ArrayCollection();
     }
+    
     /**
      * Allows to retrieve the total of the products
      * @Groups({"categories_read"})
@@ -87,7 +100,6 @@ class Category
     {
         return $this->products;
     }
-    
     
     public function addProduct(Product $product): self
     {

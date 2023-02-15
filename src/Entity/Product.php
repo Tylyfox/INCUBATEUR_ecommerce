@@ -14,19 +14,30 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  * @ApiResource(
- * subresourceOperations={
- * "api_categories_products_get_subresource"={
- *          "normalization_context"={"groups"={"products_subresource"}} 
- * }},
- * attributes={
- *  "pagination_enabled"=true,
- *  "pagination_items_per_page"=20,
- *  "order": {"name":"asc"}
- * },
- * normalizationContext={
- *  "groups"={"products_read"}},
- * collectionOperations={"GET"={"path"="/produits"},"POST"},
- * itemOperations={"GET"={"path"="/produits/{id}"},"DELETE","PUT","PATCH"})
+ *      subresourceOperations={
+ *          "api_categories_products_get_subresource"={
+ *              "normalization_context"={"groups"={"products_subresource"}} 
+ *          }
+ *      },
+ *      attributes={
+ *          "pagination_enabled"=true,
+ *          "pagination_items_per_page"=20,
+ *          "order": {"name":"asc"}
+ *      },
+ *      normalizationContext={
+ *          "groups"={"products_read"}
+ *      },
+ *      collectionOperations={
+ *          "GET"={"path"="/produits"},
+ *          "POST"={"path"="/produits"}
+ *      },
+ *      itemOperations={
+ *          "GET"={"path"="/produits/{id}"},
+ *          "DELETE"={"path"="/produits/{id}"},
+ *          "PUT"={"path"="/produits/{id}"},
+ *          "PATCH"={"path"="/produits/{id}"}
+ *      }
+ * )
  * @ApiFilter(SearchFilter::class, properties={"name":"partial"})
  * @ApiFilter(OrderFilter::class)
  */
