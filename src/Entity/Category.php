@@ -6,11 +6,23 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
- * @ApiResource
+ * @ApiResource(
+ * attributes={
+ * "pagination_enabled"=true,
+ *  "pagination_items_per_page"=20,
+ *  "order": {"name":"asc"}
+ * },subresourceOperations={
+ *      "products_get_subresource"={"path"="/categories/{id}/produits"}
+ * },
+ * normalizationContext={
+ *  "groups"= {"categories_read"}},
+ * )
  */
 class Category
 {
@@ -18,16 +30,20 @@ class Category
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"categories_read", "products_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"categories_read", "products_read"})
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Product::class, mappedBy="category")
+     * @Groups({"categories_read"})
+     * @ApiSubresource
      */
     private $products;
 
@@ -35,7 +51,18 @@ class Category
     {
         $this->products = new ArrayCollection();
     }
-
+    /**
+     * Allows to retrieve the total of the products
+     * @Groups({"categories_read"})
+     * @return float
+     */
+    public function getTotalPrice(): float
+    {
+        return array_reduce($this->products->toArray(), function($total, $products){
+            return $total + $products->getPrice();
+        },0);
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -60,7 +87,8 @@ class Category
     {
         return $this->products;
     }
-
+    
+    
     public function addProduct(Product $product): self
     {
         if (!$this->products->contains($product)) {
