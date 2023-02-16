@@ -49,7 +49,7 @@ class AppFixtures extends Fixture
         
         $admin = new User();
         
-        $hash = $this->encoder->hashPassword($admin,"Adm1nistr@teur");
+        $hash = $this->encoder->hashPassword($admin,"admin");
         
         $admin->setFirstName("admin")
         ->setLastName("admin")
@@ -60,7 +60,7 @@ class AppFixtures extends Fixture
         
         for ($k=0; $k <5 ; $k++) { 
             $user = new User();
-            $hash = $this->encoder->hashPassword($user,"P@ssw0rd");
+            $hash = $this->encoder->hashPassword($user,"password");
             $user->setEmail("user$k@gmail.com")
             ->setFirstName($faker->firstName())
             ->setLastName($faker->lastName())
