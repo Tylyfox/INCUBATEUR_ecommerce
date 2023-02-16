@@ -9,20 +9,22 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  * @ApiResource(
- *      subresourceOperations={
- *          "api_categories_products_get_subresource"={
- *              "normalization_context"={"groups"={"products_subresource"}} 
- *          }
- *      },
  *      attributes={
  *          "pagination_enabled"=true,
  *          "pagination_items_per_page"=20,
  *          "order": {"name":"asc"}
+ *      },
+ *      subresourceOperations={
+ *          "api_categories_products_get_subresource"={
+ *              "normalization_context"={
+ *                  "groups"={"products_subresource"}
+ *              } 
+ *          }
  *      },
  *      normalizationContext={
  *          "groups"={"products_read"}
@@ -36,6 +38,9 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *          "DELETE"={"path"="/produits/{id}"},
  *          "PUT"={"path"="/produits/{id}"},
  *          "PATCH"={"path"="/produits/{id}"}
+ *      },
+ *      denormalizationContext={
+ *          "disable_type_enforcement"=true
  *      }
  * )
  * @ApiFilter(SearchFilter::class, properties={"name":"partial"})
@@ -54,33 +59,42 @@ class Product
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"products_read", "categories_read", "products_subresource"})
+     * @Assert\NotBlank(message="Le nom du produit est obligatoire.")
+     * @Assert\Length(min=3, minMessage="Le nom du produit doit avoir au moins 3 caractères", max=255,  maxMessage= "Le nom du produit doit voir moins de 255 caractères")
      */
     private $name;
 
     /**
      * @ORM\Column(type="float")
      * @Groups({"products_read", "categories_read", "products_subresource"})
+     * @Assert\NotBlank(message="Le prix du produit est obligatoire.")
+     * @Assert\Type(type="numeric", message="Le prix du produit doit être un numérique.")
+     * @Assert\PositiveOrZero(message="Le prix du produit doit être positif.")
      */
     private $price;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
-     * @Groups({"products_read"})
-     */
-    private $category;
-
-    /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"products_read", "categories_read", "products_subresource"})
+     * @Assert\NotBlank(message="La photo principale du produit est obligatoire.")
+     * @Assert\Url(message="La photo principale doit être une URL valide.")
      */
     private $mainPicture;
 
     /**
      * @ORM\Column(type="text")
      * @Groups({"products_read", "categories_read", "products_subresource"})
+     * @Assert\NotBlank(message="La description du produit est obligatoire.")
+     * @Assert\Length(min = 20, minMessage="La description courte doit faire au moins 20 caractères.")
      */
     private $shortDescription;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
+     * @Groups({"products_read"})
+     */
+    private $category;
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -103,7 +117,7 @@ class Product
         return $this->price;
     }
 
-    public function setPrice(float $price): self
+    public function setPrice($price): self
     {
         $this->price = $price;
 

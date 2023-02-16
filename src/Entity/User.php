@@ -5,12 +5,31 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ApiResource
+ * @ApiResource(
+ *      attributes={
+ *          "pagination_enabled"=true,
+ *          "pagination_items_per_page"=20,
+ *          "order": {"lastName":"asc"}
+ *      },
+ *       normalizationContext={
+ *          "groups"={"users_read"}
+ *      },collectionOperations={
+ *          "GET"={"path"="/utilisateurs"},
+ *          "POST"={"path"="/utilisateurs"}
+ *      },
+ *      itemOperations={
+ *          "GET"={"path"="/utilisateurs/{id}"},
+ *          "DELETE"={"path"="/utilisateurs/{id}"},
+ *          "PUT"={"path"="/utilisateurs/{id}"},
+ *          "PATCH"={"path"="/utilisateurs/{id}"}
+ *      },
+ * )
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -18,16 +37,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("users_read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups("users_read")
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups("users_read")
      */
     private $roles = [];
 
@@ -39,11 +61,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("users_read")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("users_read")
      */
     private $lastName;
 

@@ -9,6 +9,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
@@ -19,7 +20,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "order": {"name":"asc"}
  *      },
  *      subresourceOperations={
- *          "products_get_subresource"={"path"="/categories/{id}/produits"}
+ *          "products_get_subresource"={
+ *              "path"="/categories/{id}/produits"
+ *          }
  *      },
  *      normalizationContext={
  *          "groups"= {"categories_read"}
@@ -49,6 +52,8 @@ class Category
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"categories_read", "products_read"})
+     * @Assert\NotBlank(message="Le nom de la catégorie est obligatoire.")
+     * @Assert\Length(min=3, minMessage="Le nom de la catégorie doit faire entre 3 et 255 caractères.", max=255, maxMessage="Le nom de la catégorie doit faire entre 3 et 255 caractères." )
      */
     private $name;
 
