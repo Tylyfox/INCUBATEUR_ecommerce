@@ -8,9 +8,12 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity("email", message="Un utilisateur ayant cette adresse email existe déjà.")
  * @ApiResource(
  *      attributes={
  *          "pagination_enabled"=true,
@@ -28,7 +31,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  *          "DELETE"={"path"="/utilisateurs/{id}"},
  *          "PUT"={"path"="/utilisateurs/{id}"},
  *          "PATCH"={"path"="/utilisateurs/{id}"}
- *      },
+ *      }
  * )
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -44,6 +47,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Groups("users_read")
+     * @Assert\NotBlank(message="L'eamil utilisateur est obligatoire.")
+     * @Assert\Email(message="l'email '{{ value }}' n'est pas un email valide.")
      */
     private $email;
 
@@ -56,18 +61,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Le mot de passe est obligatoire.")
+     * @Assert\Regex("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/", message="Le mot de passe doit contenir au minimum : 8 caractères, 1 Majucule, 1 Chiffre et un caractère spécial")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("users_read")
+     * @Assert\NotBlank(message="Le prénom est obligatoire.")
+     * @Assert\Length(min=2, minMessage="Le prénom doit faire entre 2 et 255 caractères.", max=255, maxMessage="Le prénom doit faire entre 2 et 255 caractères.")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("users_read")
+     * @Assert\NotBlank(message="Le nom est obligatoire.")
+     * @Assert\Length(min=2, minMessage="Le nom doit faire entre 2 et 255 caractères.", max=255, maxMessage="Le nom doit faire entre 2 et 255 caractères.")
      */
     private $lastName;
 
