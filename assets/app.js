@@ -1,10 +1,11 @@
 import React from 'react';
-
-
-require('./styles/app.css');
-
-console.log("Hello WOrld!");
+import ReactDOM from 'react-dom';
+import Navbar from './components/Navbar';
+import './styles/navBar.css';
 
 const App = () => {
-    return <h1>Bonjour à tous !</h1>;
+    return <Navbar/>;
 }
+
+const rootElement = document.querySelector('#app');
+ReactDOM.render(<App />, rootElement);
