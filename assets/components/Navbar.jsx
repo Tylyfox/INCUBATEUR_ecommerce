@@ -5,7 +5,7 @@ const Navbar = (props) => {
     <div className="">
       <header>
         <a href="#" className="logo">
-          Logo
+          E-commerce
         </a>
         <ul>
           <li><a href="#">Home</a></li>
@@ -14,10 +14,12 @@ const Navbar = (props) => {
           <li><form className="navForm">
           <input className="navSearch" type="search" placeholder="Search" />
           <button className="navButton" type="submit">Rechercher</button>
+          <li><a href="#">Inscription</a></li>
+          <li><a href="#">Connexion</a></li>
+          <li><a href="#">Deconnexion</a></li>
         </form></li>
         </ul>
       </header>
-      <section className="banner"></section>
     </div>
   );
 };
