@@ -17,7 +17,6 @@ const App = () => {
                         <Route path="/produits" component={ProductsPage}></Route>
                         <Route path="/categories" component={CategoriesPage}></Route>
                         <Route path="/" component={HomePage}></Route>
-                        
                     </Switch>
                 </main>
     </HashRouter>

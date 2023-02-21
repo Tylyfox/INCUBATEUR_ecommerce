@@ -8,15 +8,15 @@ const Navbar = (props) => {
           E-commerce
         </a>
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Produits</a></li>
-          <li><a href="#">Panier</a></li>
-          <li><form className="navForm">
+          <li key="home"><a href="#">Home</a></li>
+          <li key="produits"><a href="#">Produits</a></li>
+          <li key="panier"><a href="#">Panier</a></li>
+          <li key="search"><form className="navForm">
           <input className="navSearch" type="search" placeholder="Search" />
           <button className="navButton" type="submit">Rechercher</button>
-          <li><a href="#">Inscription</a></li>
-          <li><a href="#">Connexion</a></li>
-          <li><a href="#">Deconnexion</a></li>
+          <li key="subscribe"><a href="#">Inscription</a></li>
+          <li key="connect"><a href="#">Connexion</a></li>
+          <li key="disconnect"><a href="#">Deconnexion</a></li>
         </form></li>
         </ul>
       </header>

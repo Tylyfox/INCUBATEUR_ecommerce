@@ -1,0 +1,209 @@
+.productContainer
+{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; 
+    margin: 40px 0;
+    width: 95%;
+}
+.productContainer .itemProduct
+{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;    
+    width: 100%;
+}
+.productContainer .itemProduct .card
+{
+    position: relative;
+    width: 300px;
+    height: 400px;
+    margin: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.productContainer .itemProduct .card .content
+{
+    position: absolute;
+    bottom: -350px;
+    width: 100%;
+    max-height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    flex-direction: column;
+    backdrop-filter: blur(50px);
+    box-shadow: 0 -10px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: bottom 0.5s;
+}  
+.productContainer .itemProduct .card:hover .content
+{
+    bottom: 0;
+}
+.productContainer .itemProduct .card .content .contentBox h3
+{
+    color: #FFF;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center;
+    margin: 20px 0 15px;
+    line-height: 1.1em;
+    opacity: 0;
+    transition: 1.2s;
+    transform: translateY(-20px);
+}
+.productContainer .itemProduct .card:hover .content .contentBox h3
+{
+    opacity: 1;
+    transform: translateY(0);
+}
+.productContainer .itemProduct .card:hover .content .contentBox .contentDetails
+{
+    background-color: #FFF7;
+    padding: 10px;
+    margin: 0 5px;
+    border-radius: 10px;
+}
+.productContainer .itemProduct .card .content .contentBox .contentDetails .titleDetail
+{
+    text-align: center;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+.productContainer .itemProduct .card .content .contentBox p
+{
+    color: #100C0D;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 12px;
+    font-weight: 300;
+    text-align: center;
+    text-transform: initial;
+    line-height: 1.1em;
+    opacity: 0;
+    margin: 5px 10px;
+    transition: 0.8s;
+    transform: translateY(-20px);
+}
+.productContainer .itemProduct .card:hover .content .contentBox p
+{
+    opacity: 1;
+    transform: translateY(0);
+}
+.productContainer .itemProduct .card .content .contentBox .contentLink ul
+{
+    position: relative;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    flex-direction: row;
+    padding: 10px;
+}
+.productContainer .itemProduct .card .content .contentBox .contentLink li
+{
+    list-style: none;
+    margin: 0 10px;
+    transform: translateY(40px);
+    transition: 1.2s;
+    opacity: 0;
+    transition-delay: calc(0.2s / var(--i));
+}
+.productContainer .itemProduct .card:hover .content .contentBox .contentLink li
+{
+    opacity: 1;
+    transform: translateY(0);
+}
+.productContainer .itemProduct .card .content .contentBox .contentLink li a 
+{
+ color: #FFF;
+ font-size: 24px;   
+ transition: 0.5s;
+}
+.productContainer .itemProduct .card .content .contentBox .contentLink li a:hover 
+{
+ color: #CC8B65;
+}
+.pagination 
+{
+    position: relative;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-bottom: 30px;
+    width: 88%;
+}
+.pagination ul
+{
+    position: relative;
+    background: #fff;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: end;
+    margin: 0;
+    padding: 10px 20px;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+.pagination ul li
+{
+    list-style: none;
+    line-height: 50px;
+    margin: 0 5px;
+}
+.pagination ul li button
+{
+    width: 30px;
+    height: 30px;
+    line-height: 50px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #777;
+    font-weight: 600;
+    border-radius: 50%;
+    background-color: transparent;
+    border: none;
+}
+.pagination ul li.disabled button:hover
+{
+    background: none;
+    color: #777;
+    cursor: default;
+}
+.pagination ul li button:hover,
+.pagination ul li .active
+{
+    background: #333;
+    color: #fff;
+    cursor: pointer;
+}
+.pagination ul li .prev,
+.pagination ul li .next
+{
+    width: 30px;
+    height: 30px;
+    line-height: 50px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 20px;
+}

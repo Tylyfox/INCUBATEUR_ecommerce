@@ -9,7 +9,8 @@ const CategoriesPage = (props) => {
     useEffect(()=> {
         axios.get("https://127.0.0.1:8000/api/categories")
         .then(response =>response.data['hydra:member'])
-        .then(data => setCategories(data));
+        .then(data => setCategories(data))
+        .catch(error=> console.log(error.response));
     }, []);
 
     return ( 
