@@ -1,6 +1,7 @@
 import React,{useEffect, useState} from 'react';
 import axios from 'axios';
 import '../../styles/productsPage.css';
+import Pagination from '../services/Pagination';
 
 const ProductsPage = (props) => {
 
@@ -18,16 +19,8 @@ const ProductsPage = (props) => {
         setCurrentPage(page);
     }
 
-    const itemsPerPage = 10;
-    const pagesCount = Math.ceil(products.length / itemsPerPage);
-    const pages = [];
-
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i);
-    }
-    
-    const start= currentPage * itemsPerPage - itemsPerPage;
-    const paginationProducts = products.slice(start, start + itemsPerPage);
+    const itemsPerPage = 12;
+    const paginationProducts = Pagination.getData(products, currentPage, itemsPerPage);
 
     return ( 
         <>
@@ -60,26 +53,7 @@ const ProductsPage = (props) => {
                         </div>
                     ))}
                 </div>
-                <div className="pagination">
-                    <ul>
-                        <li key="prev" className={currentPage === 1 && "disabled"}>
-                            <button onClick={() => handlePageChange(currentPage - 1)} className="prev" disabled={currentPage === 1 && "disabled"}>
-                                <ion-icon name="chevron-back-circle-outline"></ion-icon>
-                            </button>
-                        </li>
-                        {pages.map(page => <li key={page}>
-                                                <button onClick={()=> handlePageChange(page)} className={"pageNumber" + (currentPage === page && " active")}>
-                                                    {page}
-                                                </button>
-                                            </li>
-                        )}
-                        <li key="next" className={currentPage === pagesCount && "disabled"}>
-                            <button onClick={() => handlePageChange(currentPage + 1)} className='next' disabled={currentPage === pagesCount && "disabled"} >
-                                <ion-icon name="chevron-forward-circle-outline"></ion-icon>
-                            </button>
-                        </li>    
-                    </ul>    
-                </div>
+                <Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} length={products.length} onPageChanged={handlePageChange}/>
             </div>
         </> 
     );
