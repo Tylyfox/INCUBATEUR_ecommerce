@@ -1,7 +1,7 @@
-import React,{useEffect, useState} from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import '../../styles/productsPage.css';
-import Pagination from '../services/Pagination';
+import Pagination from '../Pagination';
+import ProductsAPI from "../services/productsAPI";
 
 const ProductsPage = (props) => {
 
@@ -9,29 +9,36 @@ const ProductsPage = (props) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState("");
 
-    useEffect(()=> {
-        axios.get("https://127.0.0.1:8000/api/produits")
-        .then(response =>response.data['hydra:member'])
-        .then(data => setProducts(data))
-        .catch(error=> console.log(error.response));;
-    }, []);
-
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
+    //permet de récupérer tous les produits
+    const fetchProducts = async () => {
+        try {
+            const data = await ProductsAPI.findAll()
+            setProducts(data);
+         } catch(error) {
+             console.log(error.response)
+         }
     }
+    //au chargement du composant, on récupère les produits
+    useEffect(() => fetchProducts(),[]);
 
-    const handleSearch = (event) => {
-        const value = event.currentTarget.value;
-        setSearch(value);
+    //gestion du changment de page
+    const handlePageChange = (page) => setCurrentPage(page);
+    
+    //gestion de la recherche de produit
+    const handleSearch = ({currentTarget}) => {
+        setSearch(currentTarget.value);
         setCurrentPage(1);
     }
+    //nombre de produits par page
     const itemsPerPage = 12;
 
+    //filtrage des produits en fonction de la recherche
     const filteredProducts = products.filter(p => 
         p.name.toLowerCase().includes(search.toLowerCase()) ||
         p.category.name.toLowerCase().includes(search.toLowerCase())
     )
-
+    
+    //pagination des données
     const paginationProducts = Pagination.getData(
         filteredProducts, 
         currentPage, 

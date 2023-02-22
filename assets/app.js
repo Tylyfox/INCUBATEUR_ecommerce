@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Navbar from './components/services/Navbar';
+import Navbar from './components/Navbar';
 import HomePage from './components/pages/HomePage';
 import './styles/navBar.css';
 import './styles/homePage.css';
