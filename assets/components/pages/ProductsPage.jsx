@@ -29,6 +29,8 @@ const ProductsPage = (props) => {
         setSearch(currentTarget.value);
         setCurrentPage(1);
     }
+    //rend active ou inactive la barre de recherche
+    const handleStyle = () => document.querySelector(".searchProducts").classList.toggle('active');
     //nombre de produits par page
     const itemsPerPage = 12;
 
@@ -48,9 +50,12 @@ const ProductsPage = (props) => {
         <>
            <div className="productContainer">
                 <div className="search">
-                    <form action="">
-                        <input type="text" onChange={handleSearch} value={search} className="" placeholder='Rechercher ...' />
-                    </form>
+                    <div className="searchProducts" >
+                        <div className="icon" onClick={handleStyle}></div>
+                        <div className="input">
+                            <input type="text" onChange={handleSearch} value={search} id="mySearch" placeholder='Rechercher ...' />
+                        </div>
+                    </div>
                 </div>
                 <div className="itemProduct">
                     {paginationProducts.map(product => (
