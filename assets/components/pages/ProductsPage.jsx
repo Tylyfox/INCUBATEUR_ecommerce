@@ -7,6 +7,7 @@ const ProductsPage = (props) => {
 
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [search, setSearch] = useState("");
 
     useEffect(()=> {
         axios.get("https://127.0.0.1:8000/api/produits")
@@ -19,12 +20,31 @@ const ProductsPage = (props) => {
         setCurrentPage(page);
     }
 
+    const handleSearch = (event) => {
+        const value = event.currentTarget.value;
+        setSearch(value);
+        setCurrentPage(1);
+    }
     const itemsPerPage = 12;
-    const paginationProducts = Pagination.getData(products, currentPage, itemsPerPage);
+
+    const filteredProducts = products.filter(p => 
+        p.name.toLowerCase().includes(search.toLowerCase()) ||
+        p.category.name.toLowerCase().includes(search.toLowerCase())
+    )
+
+    const paginationProducts = Pagination.getData(
+        filteredProducts, 
+        currentPage, 
+        itemsPerPage);
 
     return ( 
         <>
            <div className="productContainer">
+                <div className="search">
+                    <form action="">
+                        <input type="text" onChange={handleSearch} value={search} className="" placeholder='Rechercher ...' />
+                    </form>
+                </div>
                 <div className="itemProduct">
                     {paginationProducts.map(product => (
                         <div className="card">
@@ -53,7 +73,9 @@ const ProductsPage = (props) => {
                         </div>
                     ))}
                 </div>
-                <Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} length={products.length} onPageChanged={handlePageChange}/>
+                {itemsPerPage < filteredProducts.length && 
+                    <Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} length={filteredProducts.length} onPageChanged={handlePageChange}/>
+                }
             </div>
         </> 
     );
