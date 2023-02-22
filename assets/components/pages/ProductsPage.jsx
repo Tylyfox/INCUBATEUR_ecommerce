@@ -19,7 +19,9 @@ const ProductsPage = (props) => {
          }
     }
     //au chargement du composant, on récupère les produits
-    useEffect(() => fetchProducts(),[]);
+    useEffect(() => {
+        fetchProducts()
+    },[]);
 
     //gestion du changment de page
     const handlePageChange = (page) => setCurrentPage(page);
