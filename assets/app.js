@@ -7,6 +7,7 @@ import './styles/homePage.css';
 import {HashRouter, Switch, Route} from "react-router-dom";
 import ProductsPage from './components/pages/ProductsPage';
 import CategoriesPage from './components/pages/CategoriesPage';
+import LoginPage from './components/pages/LoginPage';
 
 const App = () => {
    
@@ -14,6 +15,7 @@ const App = () => {
             <Navbar />
                 <main>
                     <Switch>
+                        <Route path="/login" component={LoginPage}></Route>
                         <Route path="/produits" component={ProductsPage}></Route>
                         <Route path="/categories" component={CategoriesPage}></Route>
                         <Route path="/" component={HomePage}></Route>
