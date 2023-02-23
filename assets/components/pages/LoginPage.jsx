@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AuthAPI from '../services/authAPI';
+import "../../styles/loginPage.css";
 
 const LoginPage = (props) => {
     const [credentials, setCredentials] = useState({
@@ -26,6 +27,7 @@ const LoginPage = (props) => {
 
     return ( 
         <>
+            <div className="login">
             <form onSubmit={handleSubmit}>
                 <div className="formGroup">
                     <label htmlFor="username">Adresse Email : </label>
@@ -40,6 +42,7 @@ const LoginPage = (props) => {
                     <button type="submit">Connexion</button>
                 </div>
             </form>
+            </div>
         </>
      );
 }

@@ -45,11 +45,11 @@ header ul li
     position: relative;
     list-style: none;
 }
-header ul li:hover a,
+header ul li:hover .link,
 header ul li:hover button{
     color: #CC8B65;
 }
-header ul li a,
+header ul li .link,
 header ul li button
 {
     position: relative;

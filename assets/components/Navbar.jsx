@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import AuthAPI from "./services/authAPI";
 import ProductsApi from "./services/productsAPI";
 
@@ -10,22 +11,16 @@ AuthAPI.logout();
 }
 
   return (
-    <div className="">
+    <div>
       <header>
-        <a href="#" className="logo">
-          E-commerce
-        </a>
+      <NavLink className="logo" to="/">E-commerce</NavLink>
         <ul>
-          <li key="home"><a href="#">Home</a></li>
-          <li key="produits"><a href="#">Produits</a></li>
-          <li key="panier"><a href="#">Panier</a></li>
-          <li key="search"><form className="navForm">
-          <input className="navSearch" type="search" placeholder="Search" />
-          <button className="navButton" type="submit">Rechercher</button>
-          <li key="subscribe"><a href="#">Inscription</a></li>
-          <li key="connect"><a href="#">Connexion</a></li>
+          <li key="home"><NavLink className="link" to="/">Acceuil</NavLink></li>
+          <li key="produits"><NavLink className="link" to="/produits">Produits</NavLink></li>
+          <li key="panier"><NavLink className="link" to="/categories">Categories</NavLink></li>
+          <li key="subscribe"><NavLink className="link" to="/inscription">Inscription</NavLink></li>
+          <li key="connect"><NavLink className="link" to="/login">Connexion</NavLink></li>
           <li key="disconnect"><button onClick={handleLogOut}>Deconnexion</button></li>
-        </form></li>
         </ul>
       </header>
     </div>

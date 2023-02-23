@@ -8,9 +8,12 @@ import {HashRouter, Switch, Route} from "react-router-dom";
 import ProductsPage from './components/pages/ProductsPage';
 import CategoriesPage from './components/pages/CategoriesPage';
 import LoginPage from './components/pages/LoginPage';
+import AuthAPI from './components/services/authAPI';
 
 const App = () => {
    
+    AuthAPI.setup();
+
     return  <HashRouter>
             <Navbar />
                 <main>
