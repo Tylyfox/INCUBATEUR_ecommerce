@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import AuthAPI from '../services/authAPI';
 import "../../styles/loginPage.css";
 
-const LoginPage = (props) => {
+const LoginPage = ({onLogin, history}) => {
+
     const [credentials, setCredentials] = useState({
         username: "",
         password: ""
@@ -19,6 +20,8 @@ const LoginPage = (props) => {
         try {
             await AuthAPI.authenticated(credentials);
             setError("");
+            onLogin(true);
+            history.replace("/produits");
         } catch (error) {
             console.log(error.response);
             setError('Aucun compte ne possède cette email ou email et mot de passe invalide')

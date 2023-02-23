@@ -1,5 +1,5 @@
 import axios from "axios";
-import jwtDecode, { InvalidTokenError } from "jwt-decode";
+import jwtDecode from "jwt-decode";
 
 function authenticated (credentials) {
 
@@ -10,9 +10,12 @@ function authenticated (credentials) {
         //stockage du tken dns le localStorage
         window.localStorage.setItem("authToken", token);
         //on previent Axios qu'on a un header par défaut qui contient un bearer + token sur toutes les futures requetes http
-        axios.defaults.headers['Authorization'] = "Bearer " + token;
+       setAxiosToken(token);
         return true;
     })
+}
+function setAxiosToken(token) {
+    axios.defaults.headers['Authorization'] = "Bearer " + token;
 }
 
 function logout(){
@@ -23,20 +26,28 @@ function logout(){
 function setup(){
     const token = window.localStorage.getItem("authToken");
     if (token) {
-        const jwtData =jwtDecode(token);
-        if(jwtData.exp * 1000 > new Date().getTime()){
-            axios.defaults.headers['Authorization'] = "Bearer " + token;
-            console.log(axios.defaults.headers);
-        } else {
-            logout();
-        }; 
-    } else {
-        logout();
+        const {exp: expiration} =jwtDecode(token);
+        if(expiration * 1000 > new Date().getTime()){
+            setAxiosToken(token);        
         }
+    }
+}
+
+function isAuthenticated () {
+    const token = window.localStorage.getItem('authToken');
+
+    if(token) {
+        const {exp: expiration} = jwtDecode(token);
+        if(expiration * 1000 > new Date().getTime()){
+            return true;
+        } return false;
+    }
+    return false;
 }
 
 export default {
     authenticated,
     logout, 
-    setup
-}; 
+    setup,
+    isAuthenticated
+}
