@@ -1,6 +1,14 @@
 import React from "react";
+import AuthAPI from "./services/authAPI";
+import ProductsApi from "./services/productsAPI";
+
 
 const Navbar = (props) => {
+
+const handleLogOut = () => {
+AuthAPI.logout();
+}
+
   return (
     <div className="">
       <header>
@@ -16,7 +24,7 @@ const Navbar = (props) => {
           <button className="navButton" type="submit">Rechercher</button>
           <li key="subscribe"><a href="#">Inscription</a></li>
           <li key="connect"><a href="#">Connexion</a></li>
-          <li key="disconnect"><a href="#">Deconnexion</a></li>
+          <li key="disconnect"><button onClick={handleLogOut}>Deconnexion</button></li>
         </form></li>
         </ul>
       </header>

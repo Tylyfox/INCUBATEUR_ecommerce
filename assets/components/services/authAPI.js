@@ -14,6 +14,11 @@ function authenticated (credentials) {
     })
 }
 
+function logout(){
+    window.localStorage.removeItem("authToken");
+    delete axios.defaults.headers["Authorization"];
+}
 export default {
-    authenticated
+    authenticated,
+    logout
 }; 

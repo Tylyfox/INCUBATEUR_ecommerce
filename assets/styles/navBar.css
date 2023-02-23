@@ -45,10 +45,12 @@ header ul li
     position: relative;
     list-style: none;
 }
-header ul li:hover a{
+header ul li:hover a,
+header ul li:hover button{
     color: #CC8B65;
 }
-header ul li a
+header ul li a,
+header ul li button
 {
     position: relative;
     margin: 0 15px;
@@ -57,6 +59,14 @@ header ul li a
     letter-spacing: 2px;
     font-weight: 500;
     transition: 0.5s;
+}
+header ul li button {
+    border: none;
+    background-color: #013328;
+    font-size: 1em;
+}
+header ul li button:hover {
+    cursor: pointer;
 }
 header ul li .navForm
 {
@@ -93,5 +103,5 @@ header ul li .navButton
 header ul li .navButton:hover
 {
     color: #FFFFFF;
-    cursor: p;
+    cursor: pointer;
 }
