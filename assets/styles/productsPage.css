@@ -16,123 +16,119 @@
     align-items: center;
     flex-wrap: wrap;    
     width: 100%;
+    background-color: #09161d;
+    border-radius: 20px;
+    margin: 10px 0;
 }
-.productContainer .itemProduct .card
-{  
+.card
+{
     position: relative;
-    width: 300px;
-    height: 400px;
-    margin: 20px;
+    width: 320px;
+    height: 420px;
+    background: #122936;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 20px;
 }
-.productContainer .itemProduct .card .content
+.card::before
 {
+    content: "";
     position: absolute;
-    bottom: -350px;
+    top: -50%;
     width: 100%;
-    max-height: 350px;
+    height: 100%;
+    background: #2196f3;
+    transform: skewY(345deg);
+    transition: 0.5s;
+}
+.card:hover::before
+{
+    top: -75%;
+    transform: skewY(390deg);
+}
+.card .imgBox
+{
+    position: relative;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10;
+    padding-top: 10px;
+    z-index: 1;
+}
+.card .imgBox img
+{
+    max-width: 100%;
+    transition: 0.5s;
+}
+.card:hover .imgBox img
+{
+    max-width: 50%;
+}
+.card .contentBox
+{
+    position: relative;
+    top:-50px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
-    backdrop-filter: blur(50px);
-    box-shadow: 0 -10px 10px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: bottom 0.5s;
-}  
-.productContainer .itemProduct .card:hover .content
-{
-    bottom: 0;
+    z-index: 1;
+    text-align: center;
 }
-.productContainer .itemProduct .card .content .contentBox h3
-{
-    color: #FFF;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 500;
+.card .product {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 50px;
+    transition: 0.5s;
+}
+.card:hover .product {
+    margin-bottom: 10px;
+}
+.card .contentBox h3{
     font-size: 18px;
-    text-align: center;
-    margin: 20px 0 15px;
-    line-height: 1.1em;
-    opacity: 0;
-    transition: 1.2s;
-    transform: translateY(-20px);
-}
-.productContainer .itemProduct .card:hover .content .contentBox h3
-{
-    opacity: 1;
-    transform: translateY(0);
-}
-.productContainer .itemProduct .card:hover .content .contentBox .contentDetails
-{
-    background-color: #FFF7;
-    padding: 10px;
-    margin: 0 5px;
-    border-radius: 10px;
-}
-.productContainer .itemProduct .card .content .contentBox .contentDetails .titleDetail
-{
-    text-align: center;
-    font-weight: 600;
-    text-transform: uppercase;
-    text-decoration: underline;
-}
-.productContainer .itemProduct .card .content .contentBox p
-{
-    color: #100C0D;
+    color: #fff;
+    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+.card .contentBox .price
+{
+    font-size: 20px;
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+.card .contentBox p {
     font-size: 12px;
-    font-weight: 300;
-    text-align: center;
-    text-transform: initial;
-    line-height: 1.1em;
-    opacity: 0;
-    margin: 5px 10px;
-    transition: 0.8s;
-    transform: translateY(-20px);
+    color: #fff;
+    font: 400;
+    letter-spacing: 1px;
+    text-align: justify;
 }
-.productContainer .itemProduct .card:hover .content .contentBox p
-{
-    opacity: 1;
-    transform: translateY(0);
-}
-.productContainer .itemProduct .card .content .contentBox .contentLink ul
-{
+.card .contentBox button {
     position: relative;
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    flex-direction: row;
-    padding: 10px;
-}
-.productContainer .itemProduct .card .content .contentBox .contentLink li
-{
-    list-style: none;
-    margin: 0 10px;
-    transform: translateY(40px);
-    transition: 1.2s;
+    top: 200px;
     opacity: 0;
-    transition-delay: calc(0.2s / var(--i));
+    margin: 10px 0;
+    padding: 5px 30px;
+    background: #2196f3;
+    border-radius: 30px;
+    color: #fff;
+    letter-spacing: 1px;
+    font-size: 30px;
+    text-align: center;
+    transition: 0.5s;
+    border: transparent;
 }
-.productContainer .itemProduct .card:hover .content .contentBox .contentLink li
-{
+.card:hover .contentBox button
+{    
+    top: 0;
     opacity: 1;
-    transform: translateY(0);
+    cursor: pointer;
 }
-.productContainer .itemProduct .card .content .contentBox .contentLink li a 
-{
- color: #FFF;
- font-size: 24px;   
- transition: 0.5s;
-}
-.productContainer .itemProduct .card .content .contentBox .contentLink li a:hover 
-{
- color: #CC8B65;
-}
+
+

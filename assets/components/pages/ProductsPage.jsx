@@ -3,7 +3,7 @@ import '../../styles/productsPage.css';
 import Pagination from '../Pagination';
 import SearchBar from '../SearchBar';
 import ProductsAPI from "../services/productsAPI";
-
+import img from'../../img/headphone.png';
 const ProductsPage = (props) => {
 
     const [products, setProducts] = useState([]);
@@ -57,29 +57,20 @@ const ProductsPage = (props) => {
                 <div className="itemProduct">
                     {paginationProducts.map(product => (
                         <div className="card">
-                   <div className="imageBox">
-                        <img src={product.mainPicture} alt="mainPicture" />
-                   </div>
-                   <div className="content">
-                        <div className="contentBox">
-                            <h3>{product.name}</h3>
-                            <div className="contentDetails">
-                                <p className='titleDetail'>Catégorie</p>
-                                <p>{product.category.name}</p>
-                                <p className='titleDetail'>Prix</p>
-                                <p>{product.price} €</p>
-                                <p className='titleDetail'>Description</p>
+                            <div className="imgBox">
+                                <img src={img} alt="picture" />
+                            </div>
+                            <div className="contentBox">
+                                <div className="product">
+                                <h3>{product.name}</h3>
+                                <div className="price">
+                                <h2>{product.price} €</h2>
+                                </div>
+                                </div>
                                 <p>{product.shortDescription}</p>
+                                <button><ion-icon name="basket-outline"></ion-icon></button>
                             </div>
-                            <div className="contentLink">
-                                <ul>
-                                    <li key="panierLogo" style={{"--i":"1"}}><a href="#"><ion-icon name="basket-outline"></ion-icon></a></li>
-                                    <li key="plusLogo" style={{"--i":"2"}}><a href="#"><ion-icon name="arrow-forward-outline"></ion-icon></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                   </div>
-                        </div>
+                    </div>
                     ))}
                 </div>
                 {itemsPerPage < filteredProducts.length && 
