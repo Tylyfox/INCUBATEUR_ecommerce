@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/productsPage.css';
 import Pagination from '../Pagination';
+import SearchBar from '../SearchBar';
 import ProductsAPI from "../services/productsAPI";
 
 const ProductsPage = (props) => {
@@ -33,6 +34,7 @@ const ProductsPage = (props) => {
     }
     //rend active ou inactive la barre de recherche
     const handleStyle = () => document.querySelector(".searchProducts").classList.toggle('active');
+    
     //nombre de produits par page
     const itemsPerPage = 12;
 
@@ -51,14 +53,7 @@ const ProductsPage = (props) => {
     return ( 
         <>
            <div className="productContainer">
-                <div className="search">
-                    <div className="searchProducts" >
-                        <div className="icon" onClick={handleStyle}></div>
-                        <div className="input">
-                            <input type="text" onChange={handleSearch} value={search} id="mySearch" placeholder='Rechercher ...' />
-                        </div>
-                    </div>
-                </div>
+                <SearchBar handleSearch={handleSearch} handleStyle={handleStyle} search={search}/>
                 <div className="itemProduct">
                     {paginationProducts.map(product => (
                         <div className="card">
